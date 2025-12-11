@@ -51,7 +51,7 @@ public class App {
                     System.out.println("Saliendo...");
                     break;
                 default:
-                    System.out.println("❌ Opción inválida, intenta de nuevo.");
+                    System.out.println("Opción inválida, intenta de nuevo.");
             }
 
         } while (option != 0);
