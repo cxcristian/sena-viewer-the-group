@@ -1,3 +1,4 @@
+package edu.miSena.senaViewer.model;
 public class Series extends Film {
     private int sessionQuantity; // número de temporadas o sesiones
 
