@@ -9,12 +9,21 @@ public abstract class Publication {
     private Date edititionDate;
     private String editorial;
     private String[] authors;
+    private Date startReadingDate;
 
     public Publication(String title, Date edititionDate, String editorial, String[] authors) {
         this.title = title;
         this.edititionDate = edititionDate;
         this.editorial = editorial;
         this.authors = authors;
+    }
+
+    public Date getStartReadingDate() {
+        return startReadingDate;
+    }
+
+    public void setStartReadingDate(Date startReadingDate) {
+        this.startReadingDate = startReadingDate;
     }
 
     public String getTitle() {
