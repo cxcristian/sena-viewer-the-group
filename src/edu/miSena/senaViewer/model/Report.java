@@ -1,93 +1,35 @@
-import java.util.ArrayList;
-import java.time.LocalDate;
+package edu.miSena.senaViewer.model;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Report {
+    private String name;
+    private String title;
+    private String content;
+    private String extension = ".txt";
 
-    // Reporte general
-    public static void generateReport(
-            ArrayList<Movie> movies,
-            ArrayList<Series> series,
-            ArrayList<Book> books,
-            ArrayList<Magazine> magazines
-    ) {
-
-        System.out.println("\n=== REPORTE GENERAL ===");
-
-        System.out.println("\nPELÍCULAS VISTAS:");
-        for (Movie m : movies) {
-            if (m.isViewed()) {
-                System.out.println("- " + m.getTitle() + " (" + m.getYear() + ")");
+    public void makeReport() {
+        if (name != null && title != null && content != null) {
+            try (FileWriter fileWriter = new FileWriter(name + extension)) {
+                fileWriter.write("Título: " + title + "\n\n");
+                fileWriter.write(content);
+                System.out.println("Reporte '" + name + extension + "' creado exitosamente en la raíz del proyecto.");
+            } catch (IOException e) {
+                System.out.println("Error creando el reporte: " + e.getMessage());
             }
+        } else {
+            System.out.println("Datos del reporte incompletos. No se puede crear el reporte.");
         }
-
-        System.out.println("\nSERIES VISTAS:");
-        for (Series s : series) {
-            if (s.isViewed()) {
-                System.out.println("- " + s.getTitle() + " (" + s.getYear() + ")");
-            }
-        }
-
-        System.out.println("\nLIBROS LEÍDOS:");
-        for (Book b : books) {
-            if (b.isReaded()) {
-                System.out.println("- " + b.getTitle() + " (" + b.getEdititionDate() + ")");
-            }
-        }
-
-        System.out.println("\nREVISTAS LEÍDAS:");
-        for (Magazine m : magazines) {
-            if (m.isReaded()) {
-                System.out.println("- " + m.getTitle());
-            }
-        }
-
-        System.out.println("\n=== FIN REPORTE ===");
     }
 
-
-
-    // Reporte del día
-    public static void generateReportToday(
-            ArrayList<Movie> movies,
-            ArrayList<Series> series,
-            ArrayList<Book> books,
-            ArrayList<Magazine> magazines
-    ) {
-
-        System.out.println("\n=== REPORTE DEL DÍA ===");
-
-        String today = LocalDate.now().toString();
-
-        System.out.println("Fecha: " + today + "\n");
-
-        System.out.println("PELÍCULAS VISTAS HOY:");
-        for (Movie m : movies) {
-            if (m.isViewed() && today.equals(m.getDateViewed())) {
-                System.out.println("- " + m.getTitle());
-            }
-        }
-
-        System.out.println("\nSERIES VISTAS HOY:");
-        for (Series s : series) {
-            if (s.isViewed() && today.equals(s.getDateViewed())) {
-                System.out.println("- " + s.getTitle());
-            }
-        }
-
-        System.out.println("\nLIBROS LEÍDOS HOY:");
-        for (Book b : books) {
-            if (b.isReaded() && today.equals(b.getDateReaded())) {
-                System.out.println("- " + b.getTitle());
-            }
-        }
-
-        System.out.println("\nREVISTAS LEÍDAS HOY:");
-        for (Magazine m : magazines) {
-            if (m.isReaded() && today.equals(m.getDateReaded())) {
-                System.out.println("- " + m.getTitle());
-            }
-        }
-
-        System.out.println("\n=== FIN REPORTE DEL DÍA ===");
-    }
+    // Getters and Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
+    public String getExtension() { return extension; }
+    public void setExtension(String extension) { this.extension = extension; }
 }

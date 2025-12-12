@@ -1,3 +1,7 @@
+package edu.miSena.senaViewer.model;
+
+import java.util.Date;
+
 public class Chapter {
 
     private static int counter = 0;
@@ -9,6 +13,7 @@ public class Chapter {
     private boolean viewed;
     private int timeViewed;
     private int sessionNumber;
+    private Date startViewingDate;
 
     public Chapter(String title, int duration, int year) {
         this.id = ++counter;
@@ -18,6 +23,15 @@ public class Chapter {
         this.viewed = false;
         this.timeViewed = 0;
     }
+
+    public Date getStartViewingDate() {
+        return startViewingDate;
+    }
+
+    public void setStartViewingDate(Date startViewingDate) {
+        this.startViewingDate = startViewingDate;
+    }
+
 
     // Getters y Setters
     public int getId() {
@@ -74,9 +88,9 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return "Chapter{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+        return "Chapter{"
+                + "id=" + id +
+                ", title='" + title + "'" +
                 ", duration=" + duration +
                 ", year=" + year +
                 ", viewed=" + viewed +

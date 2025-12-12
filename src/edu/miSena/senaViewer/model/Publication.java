@@ -1,42 +1,51 @@
-import java.util.List;
-import java.util.ArrayList;
+package edu.miSena.senaViewer.model;
 
-public class Publication {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public abstract class Publication {
     private String title;
-    private String editionDate;
+    private Date edititionDate;
     private String editorial;
     private List<String> authors;
 
-    // Constructor obligatorio
-    public Publication(String title, String editionDate, String editorial) {
+    public Publication(String title, Date edititionDate, String editorial) {
         this.title = title;
-        this.editionDate = editionDate;
+        this.edititionDate = edititionDate;
         this.editorial = editorial;
-        this.authors = new ArrayList<>(); // inicialización de la lista
+        this.authors = new ArrayList<>();
     }
 
-    // Getters y Setters
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public String getEditionDate() { return editionDate; }
-    public void setEditionDate(String editionDate) { this.editionDate = editionDate; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public String getEditorial() { return editorial; }
-    public void setEditorial(String editorial) { this.editorial = editorial; }
+    public Date getEdititionDate() {
+        return edititionDate;
+    }
 
-    public List<String> getAuthors() { return authors; }
-    public void setAuthors(List<String> authors) { this.authors = authors; }
-    public void addAuthor(String author) { this.authors.add(author); }
+    public void setEdititionDate(Date edititionDate) {
+        this.edititionDate = edititionDate;
+    }
 
-    // toString()
-    @Override
-    public String toString() {
-        return "Publication{" +
-                "title='" + title + '\'' +
-                ", editionDate='" + editionDate + '\'' +
-                ", editorial='" + editorial + '\'' +
-                ", authors=" + authors +
-                '}';
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
     }
 }

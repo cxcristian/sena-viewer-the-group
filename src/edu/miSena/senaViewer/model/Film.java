@@ -1,4 +1,8 @@
-public class Film {
+package edu.miSena.senaViewer.model;
+
+import java.util.Date;
+
+public abstract class Film {
 
     private int id;
     private String title;
@@ -7,17 +11,23 @@ public class Film {
     private int duration;
     private int year;
     private boolean viewed;
+    private int timeViewed;
+    private Date startViewingDate;
 
-    // Constructor
     public Film(String title, String genre, String creator, int duration) {
         this.title = title;
         this.genre = genre;
         this.creator = creator;
         this.duration = duration;
-        this.viewed = false;
     }
 
-    // Getters-setters
+    public Date getStartViewingDate() {
+        return startViewingDate;
+    }
+
+    public void setStartViewingDate(Date startViewingDate) {
+        this.startViewingDate = startViewingDate;
+    }
 
     public int getId() {
         return id;
@@ -75,16 +85,25 @@ public class Film {
         this.viewed = viewed;
     }
 
+    public int getTimeViewed() {
+        return timeViewed;
+    }
+
+    public void setTimeViewed(int timeViewed) {
+        this.timeViewed = timeViewed;
+    }
+
     @Override
     public String toString() {
-        return "Film {" +
+        return "Film{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", creator='" + creator + '\'' +
+                ", title='" + title + "'" +
+                ", genre='" + genre + "'" +
+                ", creator='" + creator + "'" +
                 ", duration=" + duration +
                 ", year=" + year +
                 ", viewed=" + viewed +
+                ", timeViewed=" + timeViewed +
                 '}';
     }
 }

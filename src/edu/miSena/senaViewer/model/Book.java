@@ -1,44 +1,76 @@
+package edu.miSena.senaViewer.model;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Book extends Publication {
-    private int id;            // Identificador único del libro
-    private String isbn;       // Código ISBN
-    private boolean readed;    // Indicador si fue leído
-    private int timeReaded;    // Tiempo total de lectura en minutos
+    private int id;
+    private String isbn;
+    private boolean readed;
+    private int timeReaded;
+    private Date startReadingDate;
 
-    // Constructor obligatorio: title, editionDate, editorial, isbn
-    public Book(String title, String editionDate, String editorial, String isbn) {
-        super(title, editionDate, editorial); // inicializa atributos heredados
+    public Book(String title, Date edititionDate, String editorial, String isbn) {
+        super(title, edititionDate, editorial);
         this.isbn = isbn;
-        this.readed = false;
-        this.timeReaded = 0;
     }
 
-    // Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Date getStartReadingDate() {
+        return startReadingDate;
+    }
 
-    public String getIsbn() { return isbn; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
+    public void setStartReadingDate(Date startReadingDate) {
+        this.startReadingDate = startReadingDate;
+    }
 
-    public boolean isReaded() { return readed; }
-    public void setReaded(boolean readed) { this.readed = readed; }
+    public int getId() {
+        return id;
+    }
 
-    public int getTimeReaded() { return timeReaded; }
-    public void setTimeReaded(int timeReaded) { this.timeReaded = timeReaded; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    // toString()
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public boolean isReaded() {
+        return readed;
+    }
+
+    public void setReaded(boolean readed) {
+        this.readed = readed;
+    }
+
+    public int getTimeReaded() {
+        return timeReaded;
+    }
+
+    public void setTimeReaded(int timeReaded) {
+        this.timeReaded = timeReaded;
+    }
+
+    public static List<Book> makeBooksList() {
+        List<Book> books = new ArrayList<>();
+        books.add(new Book("One Hundred Years of Solitude", new Date(), "Harper & Row", "978-0060883287"));
+        books.add(new Book("1984", new Date(), "Secker & Warburg", "978-0451524935"));
+        books.add(new Book("The Lord of the Rings", new Date(), "Allen & Unwin", "978-0618640157"));
+        books.add(new Book("The Little Prince", new Date(), "Reynal & Hitchcock", "978-0156012195"));
+        return books;
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + getTitle() + '\'' +
-                ", editionDate='" + getEditionDate() + '\'' +
-                ", editorial='" + getEditorial() + '\'' +
-                ", authors=" + getAuthors() +
-                ", isbn='" + isbn + '\'' +
-                ", readed=" + readed +
-                ", timeReaded=" + timeReaded +
-                '}';
+        return "Book :: " +
+                "Title: '" + getTitle() + "'" +
+                ", Editorial: '" + getEditorial() + "'" +
+                ", Edition Date: '" + getEdititionDate() + "'" +
+                ", ISBN: '" + isbn + "'";
     }
 }

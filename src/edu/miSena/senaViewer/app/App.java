@@ -1,89 +1,241 @@
-import java.util.ArrayList;
+package edu.miSena.senaViewer.app;
+
+import edu.miSena.senaViewer.model.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
-    static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Movie> movies = Movie.makeMoviesList();
+    private static List<Series> series = Series.makeSeriesList();
+    private static List<Book> books = Book.makeBooksList();
+    private static List<Magazine> magazines = Magazine.makeMagazinesList();
 
     public static void main(String[] args) {
+        showMenu();
+    }
 
+    private static void showMenu() {
         int option = -1;
-
-        do {
+        while (option != 0) {
             System.out.println("\n=== SENA VIEWER ===");
-            System.out.println("1. Movies");
+            System.out.println("1. Películas");
             System.out.println("2. Series");
-            System.out.println("3. Books");
-            System.out.println("4. Magazines");
-            System.out.println("5. Report");
-            System.out.println("6. Report Today");
-            System.out.println("0. Exit");
-            System.out.print("Selecciona opción: ");
+            System.out.println("3. Libros");
+            System.out.println("4. Revistas");
+            System.out.println("5. Reporte");
+            System.out.println("6. Reporte de Hoy");
+            System.out.println("0. Salir");
+            System.out.print("Selecciona una opción: ");
 
             try {
                 option = Integer.parseInt(scanner.nextLine());
-            } catch (Exception e) {
-                option = -1;
+                switch (option) {
+                    case 1:
+                        showMovies();
+                        break;
+                    case 2:
+                        showSeries();
+                        break;
+                    case 3:
+                        showBooks();
+                        break;
+                    case 4:
+                        showMagazines();
+                        break;
+                    case 5:
+                        makeGeneralReport();
+                        break;
+                    case 6:
+                        makeReportToday();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo...");
+                        break;
+                    default:
+                        System.out.println("Opción inválida, por favor intenta de nuevo.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Por favor, ingresa un número válido.");
             }
-
-            switch (option) {
-                case 1:
-                    showMovies();
-                    break;
-                case 2:
-                    showSeries();
-                    break;
-                case 3:
-                    showBooks();
-                    break;
-                case 4:
-                    showMagazines();
-                    break;
-                case 5:
-                    System.out.println("Generando Reporte General...");
-                    
-                    break;
-                case 6:
-                    System.out.println("Generando Reporte del Día...");
-                  
-                    break;
-                case 0:
-                    System.out.println("Saliendo...");
-                    break;
-                default:
-                    System.out.println("Opción inválida, intenta de nuevo.");
-            }
-
-        } while (option != 0);
-
+        }
+        scanner.close();
     }
 
-    // --- MÉTODOS DEL MENÚ ---
-
     private static void showMovies() {
-        System.out.println("\n=== LISTA DE PELÍCULAS ===");
+        System.out.println("\n=== Lista de Películas ===");
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i + 1) + ". " + movies.get(i).getTitle() + " (Visto: " + movies.get(i).isViewed() + ")");
+        }
+        System.out.println("0. Volver al Menú Principal");
+        System.out.print("Selecciona una película: ");
 
-        System.out.println("Simulando lista de películas...");
-
-        System.out.println("Volviendo al menú...");
+        try {
+            int option = Integer.parseInt(scanner.nextLine());
+            if (option > 0 && option <= movies.size()) {
+                Movie selectedMovie = movies.get(option - 1);
+                selectedMovie.setViewed(true);
+                selectedMovie.setStartViewingDate(new Date());
+                System.out.println("\n... VIENDO ...");
+                System.out.println(selectedMovie);
+                System.out.println("Marcado como visto.\n");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Por favor, ingresa un número válido.");
+        }
     }
 
     private static void showSeries() {
-        System.out.println("\n=== LISTA DE SERIES ===");
-        System.out.println("Simulando lista de series...");
-        System.out.println("Volviendo al menú...");
+        System.out.println("\n=== Lista de Series ===");
+        for (int i = 0; i < series.size(); i++) {
+            System.out.println((i + 1) + ". " + series.get(i).getTitle());
+        }
+        System.out.println("0. Volver al Menú Principal");
+        System.out.print("Selecciona una serie: ");
+
+        try {
+            int seriesOption = Integer.parseInt(scanner.nextLine());
+            if (seriesOption > 0 && seriesOption <= series.size()) {
+                Series selectedSeries = series.get(seriesOption - 1);
+                
+                int chapterOption = -1;
+                while (chapterOption != 0) {
+                    System.out.println("\n=== Capítulos de: " + selectedSeries.getTitle() + " ===");
+                    List<Chapter> chapters = selectedSeries.getChapters();
+                    if (chapters.isEmpty()) {
+                        System.out.println("Esta serie aún no tiene capítulos.");
+                        chapterOption = 0;
+                        continue;
+                    }
+
+                    for (int i = 0; i < chapters.size(); i++) {
+                        System.out.println((i + 1) + ". " + chapters.get(i).getTitle() + " (Visto: " + chapters.get(i).isViewed() + ")");
+                    }
+                    System.out.println("0. Volver a la Lista de Series");
+                    System.out.print("Selecciona un capítulo: ");
+
+                    chapterOption = Integer.parseInt(scanner.nextLine());
+                    if (chapterOption > 0 && chapterOption <= chapters.size()) {
+                        Chapter selectedChapter = chapters.get(chapterOption - 1);
+                        selectedChapter.setViewed(true);
+                        selectedChapter.setStartViewingDate(new Date());
+                        System.out.println("\n... VIENDO CAPÍTULO ...");
+                        System.out.println(selectedChapter);
+                        System.out.println("Marcado como visto.\n");
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Por favor, ingresa un número válido.");
+        }
     }
 
     private static void showBooks() {
-        System.out.println("\n=== LISTA DE LIBROS ===");
-        System.out.println("Simulando lista de libros...");
-        System.out.println("Volviendo al menú...");
+        System.out.println("\n=== Lista de Libros ===");
+        for (int i = 0; i < books.size(); i++) {
+            System.out.println((i + 1) + ". " + books.get(i).getTitle() + " (Leído: " + books.get(i).isReaded() + ")");
+        }
+        System.out.println("0. Volver al Menú Principal");
+        System.out.print("Selecciona un libro: ");
+
+        try {
+            int option = Integer.parseInt(scanner.nextLine());
+            if (option > 0 && option <= books.size()) {
+                Book selectedBook = books.get(option - 1);
+                selectedBook.setReaded(true);
+                selectedBook.setStartReadingDate(new Date());
+                System.out.println("\n... LEYENDO ...");
+                System.out.println(selectedBook);
+                System.out.println("Marcado como leído.\n");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Por favor, ingresa un número válido.");
+        }
     }
 
     private static void showMagazines() {
-        System.out.println("\n=== LISTA DE REVISTAS ===");
-        System.out.println("Simulando lista de revistas...");
-        System.out.println("Volviendo al menú...");
+        System.out.println("\n=== Lista de Revistas ===");
+        for (int i = 0; i < magazines.size(); i++) {
+            System.out.println((i + 1) + ". " + magazines.get(i).getTitle());
+        }
+        System.out.println("0. Volver al Menú Principal");
+        System.out.print("Selecciona una revista para ver detalles: ");
+
+        try {
+            int option = Integer.parseInt(scanner.nextLine());
+            if (option > 0 && option <= magazines.size()) {
+                Magazine selectedMagazine = magazines.get(option - 1);
+                System.out.println("\n... DETALLES ...");
+                System.out.println(selectedMagazine);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Por favor, ingresa un número válido.");
+        }
     }
 
+    private static void makeGeneralReport() {
+        Report report = new Report();
+        report.setName("ReporteGeneral");
+        report.setTitle("--- CONTENIDO VISTO ---");
+        StringBuilder content = new StringBuilder();
+
+        for (Movie movie : movies) {
+            if (movie.isViewed()) {
+                content.append("Película: ").append(movie.getTitle()).append("\n");
+            }
+        }
+
+        for (Series s : series) {
+            for (Chapter chapter : s.getChapters()) {
+                if (chapter.isViewed()) {
+                    content.append("Serie: ").append(s.getTitle()).append(" - Capítulo: ").append(chapter.getTitle()).append("\n");
+                }
+            }
+        }
+        
+        for (Book book : books) {
+            if (book.isReaded()) {
+                content.append("Libro: ").append(book.getTitle()).append("\n");
+            }
+        }
+        
+        report.setContent(content.toString());
+        report.makeReport();
+    }
+
+    private static void makeReportToday() {
+        Report report = new Report();
+        report.setName("ReporteDeHoy");
+        report.setTitle("--- CONTENIDO VISTO HOY ---");
+        StringBuilder content = new StringBuilder();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String today = sdf.format(new Date());
+
+        for (Movie movie : movies) {
+            if (movie.getStartViewingDate() != null && sdf.format(movie.getStartViewingDate()).equals(today)) {
+                content.append("Película: ").append(movie.getTitle()).append("\n");
+            }
+        }
+
+        for (Series s : series) {
+            for (Chapter chapter : s.getChapters()) {
+                 if (chapter.getStartViewingDate() != null && sdf.format(chapter.getStartViewingDate()).equals(today)) {
+                    content.append("Serie: ").append(s.getTitle()).append(" - Capítulo: ").append(chapter.getTitle()).append("\n");
+                }
+            }
+        }
+        
+        for (Book book : books) {
+            if (book.getStartReadingDate() != null && sdf.format(book.getStartReadingDate()).equals(today)) {
+                content.append("Libro: ").append(book.getTitle()).append("\n");
+            }
+        }
+
+        report.setContent(content.toString());
+        report.makeReport();
+    }
 }
