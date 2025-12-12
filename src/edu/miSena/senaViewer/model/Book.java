@@ -9,19 +9,10 @@ public class Book extends Publication {
     private String isbn;
     private boolean readed;
     private int timeReaded;
-    private Date startReadingDate;
 
-    public Book(String title, Date edititionDate, String editorial, String isbn) {
-        super(title, edititionDate, editorial);
+    public Book(String title, Date edititionDate, String editorial, String[] authors, String isbn) {
+        super(title, edititionDate, editorial, authors);
         this.isbn = isbn;
-    }
-
-    public Date getStartReadingDate() {
-        return startReadingDate;
-    }
-
-    public void setStartReadingDate(Date startReadingDate) {
-        this.startReadingDate = startReadingDate;
     }
 
     public int getId() {
@@ -58,19 +49,32 @@ public class Book extends Publication {
 
     public static List<Book> makeBooksList() {
         List<Book> books = new ArrayList<>();
-        books.add(new Book("One Hundred Years of Solitude", new Date(), "Harper & Row", "978-0060883287"));
-        books.add(new Book("1984", new Date(), "Secker & Warburg", "978-0451524935"));
-        books.add(new Book("The Lord of the Rings", new Date(), "Allen & Unwin", "978-0618640157"));
-        books.add(new Book("The Little Prince", new Date(), "Reynal & Hitchcock", "978-0156012195"));
+        String[] authors = new String[1];
+        authors[0] = "Gabriel García Márquez";
+        books.add(new Book("Cien Años de Soledad", new Date(), "Harper & Row", authors, "978-0060883287"));
+
+        authors = new String[1];
+        authors[0] = "George Orwell";
+        books.add(new Book("1984", new Date(), "Secker & Warburg", authors, "978-0451524935"));
+        
+        authors = new String[1];
+        authors[0] = "J.R.R. Tolkien";
+        books.add(new Book("El Señor de los Anillos", new Date(), "Allen & Unwin", authors, "978-0618640157"));
+        
+        authors = new String[1];
+        authors[0] = "Antoine de Saint-Exupéry";
+        books.add(new Book("El Principito", new Date(), "Reynal & Hitchcock", authors, "978-0156012195"));
+        
         return books;
     }
 
     @Override
     public String toString() {
         return "Book :: " +
-                "Title: '" + getTitle() + "'" +
-                ", Editorial: '" + getEditorial() + "'" +
-                ", Edition Date: '" + getEdititionDate() + "'" +
-                ", ISBN: '" + isbn + "'";
+                "\n Title: '" + getTitle() + "'" +
+                "\n Editorial: '" + getEditorial() + "'" +
+                "\n Edition Date: '" + getEdititionDate() + "'" +
+                "\n Authors: " + String.join(", ", getAuthors()) +
+                "\n ISBN: '" + isbn + "'";
     }
 }

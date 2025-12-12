@@ -8,13 +8,13 @@ public abstract class Publication {
     private String title;
     private Date edititionDate;
     private String editorial;
-    private List<String> authors;
+    private String[] authors;
 
-    public Publication(String title, Date edititionDate, String editorial) {
+    public Publication(String title, Date edititionDate, String editorial, String[] authors) {
         this.title = title;
         this.edititionDate = edititionDate;
         this.editorial = editorial;
-        this.authors = new ArrayList<>();
+        this.authors = authors;
     }
 
     public String getTitle() {
@@ -41,11 +41,11 @@ public abstract class Publication {
         this.editorial = editorial;
     }
 
-    public List<String> getAuthors() {
+    public String[] getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(String[] authors) {
         this.authors = authors;
     }
 }

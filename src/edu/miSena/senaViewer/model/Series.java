@@ -7,8 +7,9 @@ public class Series extends Film {
     private int sessionQuantity;
     private List<Chapter> chapters;
 
-    public Series(String title, String genre, String creator, int duration, int sessionQuantity) {
+    public Series(String title, String genre, String creator, int duration, int year, int sessionQuantity) {
         super(title, genre, creator, duration);
+        setYear(year);
         this.sessionQuantity = sessionQuantity;
         this.chapters = new ArrayList<>();
     }
@@ -31,18 +32,18 @@ public class Series extends Film {
 
     public static List<Series> makeSeriesList() {
         List<Series> series = new ArrayList<>();
-        Series breakingBad = new Series("Breaking Bad", "Crime Drama", "Vince Gilligan", 45, 5);
+        Series breakingBad = new Series("Breaking Bad", "Crime Drama", "Vince Gilligan", 45, 2008, 5);
         breakingBad.getChapters().add(new Chapter("Pilot", 58, 2008));
         breakingBad.getChapters().add(new Chapter("Cat's in the Bag...", 48, 2008));
         series.add(breakingBad);
 
-        Series gameOfThrones = new Series("Game of Thrones", "Fantasy", "David Benioff, D. B. Weiss", 60, 8);
+        Series gameOfThrones = new Series("Game of Thrones", "Fantasy", "David Benioff, D. B. Weiss", 60, 2011, 8);
         gameOfThrones.getChapters().add(new Chapter("Winter Is Coming", 62, 2011));
         gameOfThrones.getChapters().add(new Chapter("The Kingsroad", 56, 2011));
         series.add(gameOfThrones);
         
-        series.add(new Series("Black Mirror", "Sci-Fi", "Charlie Brooker", 50, 5));
-        series.add(new Series("The Mandalorian", "Sci-Fi", "Jon Favreau", 40, 3));
+        series.add(new Series("Black Mirror", "Sci-Fi", "Charlie Brooker", 50, 2011, 5));
+        series.add(new Series("The Mandalorian", "Sci-Fi", "Jon Favreau", 40, 2019, 3));
 
         return series;
     }
@@ -50,10 +51,11 @@ public class Series extends Film {
     @Override
     public String toString() {
         return "Serie :: " +
-                "Title: '" + getTitle() + "'" +
-                ", Genre: '" + getGenre() + "'" +
-                ", Creator: '" + getCreator() + "'" +
-                ", Duration: " + getDuration() +
-                ", Sessions: " + sessionQuantity;
+                "\n Title: '" + getTitle() + "'" +
+                "\n Genre: '" + getGenre() + "'" +
+                "\n Creator: '" + getCreator() + "'" +
+                "\n Duration: " + getDuration() + " mins" +
+                "\n Year: " + getYear() +
+                "\n Sessions: " + sessionQuantity;
     }
 }
