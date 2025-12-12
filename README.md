@@ -1,18 +1,100 @@
-## Getting Started
+# SENA Viewer
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+SENA Viewer es una aplicación de consola diseñada para simular una plataforma de streaming de contenido multimedia. El proyecto tiene como objetivo proporcionar a los usuarios una experiencia interactiva para explorar y "ver" diferentes tipos de contenido digital, incluyendo películas, series, libros y revistas.
 
-## Folder Structure
+## Integrantes y Roles
 
-The workspace contains two folders by default, where:
+| Nombre              | Rol                                |
+| ------------------- | ---------------------------------- |
+| **Santiago Pinzon** | Líder y coordinador del proyecto   |
+| **Cristian Giraldo**| Manejo de repositorio y merges     |
+| **Ivan Acosta**     | Revisor de código y arreglo de errores |
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Estructura del Proyecto
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+El proyecto está organizado en la siguiente estructura de carpetas y clases:
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+```
+sena-viewer-the-group/
+├── src/
+│   └── edu/
+│       └── miSena/
+│           └── senaViewer/
+│               ├── app/
+│               │   └── App.java             # Clase principal que ejecuta la aplicación
+│               └── model/
+│                   ├── Publication.java     # Clase padre para publicaciones (libros, revistas)
+│                   ├── Book.java            # Hereda de Publication
+│                   ├── Magazine.java        # Hereda de Publication
+│                   ├── Film.java            # Clase padre para material filmográfico (películas, series)
+│                   ├── Movie.java           # Hereda de Film
+│                   ├── Series.java          # Hereda de Film
+│                   ├── Chapter.java         # Representa un capítulo de una serie
+│                   └── Report.java          # (No implementado en el código actual)
+├── bin/                                     # Directorio para los archivos .class compilados
+├── .gitignore
+└── README.md
+```
 
-## Dependency Management
+## Diagrama de Clases
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+A continuación se muestra el diagrama de herencia principal del modelo de clases:
+
+![diagrana uml](img/image.png)
+
+## Instrucciones para Compilar y Ejecutar
+
+### Requisitos
+- JDK 17 o superior.
+- Git.
+
+### Compilación
+1. Clona el repositorio:
+   ```bash
+   git clone <url-del-repositorio>
+   ```
+2. Navega al directorio del proyecto:
+   ```bash
+   cd sena-viewer-the-group
+   ```
+3. Crea el directorio `bin` si no existe para almacenar los archivos compilados:
+   ```bash
+   mkdir bin
+   ```
+4. Compila los archivos fuente de Java:
+   ```bash
+   javac -d bin src/edu/miSena/senaViewer/app/App.java src/edu/miSena/senaViewer/model/*.java
+   ```
+
+### Ejecución
+1. Una vez compilado el proyecto, ejecuta la clase principal `App` desde el directorio raíz:
+   ```bash
+   java -cp bin edu.miSena.senaViewer.app.App
+   ```
+2. La aplicación se iniciará en la consola y mostrará el menú principal.
+
+## Demo del Proyecto (Sprint Review)
+
+*(Sección para agregar un GIF o video demostrativo de la aplicación en funcionamiento)*
+
+```
+:: BIENVENIDOS A SENA VIEWER ::
+Selecciona una opción
+1. Movies
+2. Series
+3. Books
+4. Magazines
+5. Report
+6. Report Today
+0. Exit
+
+Opción: 1
+
+:: MOVIES ::
+1. Movie 1
+2. Movie 2
+3. Movie 3
+0. Regresar
+
+...
+```
