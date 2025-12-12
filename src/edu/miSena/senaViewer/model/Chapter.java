@@ -13,7 +13,6 @@ public class Chapter {
     private boolean viewed;
     private int timeViewed;
     private int sessionNumber;
-    private Date startViewingDate;
 
     public Chapter(String title, int duration, int year) {
         this.id = ++counter;
@@ -22,14 +21,6 @@ public class Chapter {
         this.year = year;
         this.viewed = false;
         this.timeViewed = 0;
-    }
-
-    public Date getStartViewingDate() {
-        return startViewingDate;
-    }
-
-    public void setStartViewingDate(Date startViewingDate) {
-        this.startViewingDate = startViewingDate;
     }
 
 

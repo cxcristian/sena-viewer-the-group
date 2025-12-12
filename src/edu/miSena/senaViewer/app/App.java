@@ -28,7 +28,6 @@ public class App {
             System.out.println("3. Libros");
             System.out.println("4. Revistas");
             System.out.println("5. Reporte");
-            System.out.println("6. Reporte de Hoy");
             System.out.println("0. Salir");
             System.out.print("Selecciona una opción: ");
 
@@ -49,9 +48,6 @@ public class App {
                         break;
                     case 5:
                         makeGeneralReport();
-                        break;
-                    case 6:
-                        makeReportToday();
                         break;
                     case 0:
                         System.out.println("Saliendo...");
@@ -79,7 +75,6 @@ public class App {
             if (option > 0 && option <= movies.size()) {
                 Movie selectedMovie = movies.get(option - 1);
                 selectedMovie.setViewed(true);
-                selectedMovie.setStartViewingDate(new Date());
                 System.out.println("\n... VIENDO ...");
                 System.out.println(selectedMovie);
                 System.out.println("Marcado como visto.\n");
@@ -122,7 +117,6 @@ public class App {
                     if (chapterOption > 0 && chapterOption <= chapters.size()) {
                         Chapter selectedChapter = chapters.get(chapterOption - 1);
                         selectedChapter.setViewed(true);
-                        selectedChapter.setStartViewingDate(new Date());
                         System.out.println("\n... VIENDO CAPÍTULO ...");
                         System.out.println(selectedChapter);
                         System.out.println("Marcado como visto.\n");
@@ -147,7 +141,6 @@ public class App {
             if (option > 0 && option <= books.size()) {
                 Book selectedBook = books.get(option - 1);
                 selectedBook.setReaded(true);
-                selectedBook.setStartReadingDate(new Date());
                 System.out.println("\n... LEYENDO ...");
                 System.out.println(selectedBook);
                 System.out.println("Marcado como leído.\n");
@@ -203,38 +196,6 @@ public class App {
             }
         }
         
-        report.setContent(content.toString());
-        report.makeReport();
-    }
-
-    private static void makeReportToday() {
-        Report report = new Report();
-        report.setName("ReporteDeHoy");
-        report.setTitle("--- CONTENIDO VISTO HOY ---");
-        StringBuilder content = new StringBuilder();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String today = sdf.format(new Date());
-
-        for (Movie movie : movies) {
-            if (movie.getStartViewingDate() != null && sdf.format(movie.getStartViewingDate()).equals(today)) {
-                content.append("Película: ").append(movie.getTitle()).append("\n");
-            }
-        }
-
-        for (Series s : series) {
-            for (Chapter chapter : s.getChapters()) {
-                 if (chapter.getStartViewingDate() != null && sdf.format(chapter.getStartViewingDate()).equals(today)) {
-                    content.append("Serie: ").append(s.getTitle()).append(" - Capítulo: ").append(chapter.getTitle()).append("\n");
-                }
-            }
-        }
-        
-        for (Book book : books) {
-            if (book.getStartReadingDate() != null && sdf.format(book.getStartReadingDate()).equals(today)) {
-                content.append("Libro: ").append(book.getTitle()).append("\n");
-            }
-        }
-
         report.setContent(content.toString());
         report.makeReport();
     }

@@ -12,21 +12,12 @@ public abstract class Film {
     private int year;
     private boolean viewed;
     private int timeViewed;
-    private Date startViewingDate;
 
     public Film(String title, String genre, String creator, int duration) {
         this.title = title;
         this.genre = genre;
         this.creator = creator;
         this.duration = duration;
-    }
-
-    public Date getStartViewingDate() {
-        return startViewingDate;
-    }
-
-    public void setStartViewingDate(Date startViewingDate) {
-        this.startViewingDate = startViewingDate;
     }
 
     public int getId() {
